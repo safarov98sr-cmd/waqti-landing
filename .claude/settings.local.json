@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Start-Process *)",
+      "Bash(npm run *)",
+      "Bash(cmd.exe *)"
+    ]
+  }
+}
