@@ -11,7 +11,7 @@
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    background: #070F1A;
+    background: #0A0F0D;
     color: #F8FAFC;
   }
   h1, h2, h3 {
@@ -22,20 +22,32 @@
 @layer utilities {
   /* Glassmorphism */
   .glass {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(16px) saturate(150%);
     -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .glass-emerald {
+    background: rgba(16, 185, 129, 0.06);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid rgba(16, 185, 129, 0.18);
   }
   .glass-gold {
-    background: rgba(239, 159, 39, 0.06);
+    background: rgba(245, 158, 11, 0.06);
     backdrop-filter: blur(16px) saturate(150%);
     -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid rgba(239, 159, 39, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.2);
   }
-  /* Gold gradient text */
+  /* Gradient text — emerald → gold */
   .text-gradient {
-    background: linear-gradient(135deg, #EF9F27 0%, #F5C05A 50%, #D4AF37 100%);
+    background: linear-gradient(135deg, #10B981 0%, #34D399 50%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #F59E0B 0%, #FCD34D 50%, #D4AF37 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -59,9 +71,9 @@
 
 /* ── CTA pulse ring ── */
 @keyframes pulse-ring {
-  0%   { box-shadow: 0 0 0 0   rgba(239, 159, 39, 0.55); }
-  65%  { box-shadow: 0 0 0 18px rgba(239, 159, 39, 0); }
-  100% { box-shadow: 0 0 0 0   rgba(239, 159, 39, 0); }
+  0%   { box-shadow: 0 0 0 0    rgba(16, 185, 129, 0.55); }
+  65%  { box-shadow: 0 0 0 18px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0    rgba(16, 185, 129, 0); }
 }
 .btn-pulse {
   animation: pulse-ring 2.5s ease-in-out infinite;
@@ -70,7 +82,7 @@
 .btn-pulse:hover {
   animation: none;
   transform: scale(1.04) translateY(-2px);
-  box-shadow: 0 10px 36px rgba(239, 159, 39, 0.55);
+  box-shadow: 0 10px 36px rgba(16, 185, 129, 0.55);
 }
 
 /* ── Floating phone ── */
@@ -86,6 +98,28 @@
 }
 .animate-spin-slow { animation: spin-slow 80s linear infinite; }
 
+/* ── 3-D Flip Card ── */
+.flip-card { perspective: 1200px; }
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) {
+  .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: inherit;
+}
+.flip-card-back { transform: rotateY(180deg); }
+
 /* ── Respect user motion preferences ── */
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
@@ -97,4 +131,5 @@
     opacity: 1 !important;
     transform: none !important;
   }
+  .flip-card-inner { transition: none !important; }
 }

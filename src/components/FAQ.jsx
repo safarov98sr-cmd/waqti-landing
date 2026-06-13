@@ -29,11 +29,9 @@ const faqs = [
 ]
 
 const ChevronIcon = ({ open }) => (
-  <svg
-    width="20" height="20" viewBox="0 0 22 22" fill="none"
+  <svg width="20" height="20" viewBox="0 0 22 22" fill="none"
     style={{ flexShrink: 0, transition: 'transform 0.3s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
-    aria-hidden="true"
-  >
+    aria-hidden="true">
     <path d="M5.5 8.5l5.5 5.5 5.5-5.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
@@ -43,34 +41,30 @@ function FAQItem({ faq, isOpen, onToggle }) {
     <div
       className="rounded-2xl overflow-hidden"
       style={{
-        border: `1px solid ${isOpen ? 'rgba(239,159,39,0.35)' : 'rgba(255,255,255,0.08)'}`,
-        boxShadow: isOpen ? '0 4px 24px rgba(0,0,0,0.2)' : 'none',
+        border: `1px solid ${isOpen ? 'rgba(16,185,129,0.35)' : 'rgba(255,255,255,0.07)'}`,
+        boxShadow: isOpen ? '0 4px 24px rgba(0,0,0,0.25)' : 'none',
         transition: 'border-color 0.25s, box-shadow 0.25s',
       }}
     >
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left cursor-pointer transition-colors duration-200"
-        style={{ background: isOpen ? 'rgba(239,159,39,0.04)' : 'rgba(255,255,255,0.02)' }}
+        style={{ background: isOpen ? 'rgba(16,185,129,0.04)' : 'rgba(255,255,255,0.02)' }}
         aria-expanded={isOpen}
       >
-        <span
-          className="font-bold text-base"
-          style={{ color: isOpen ? '#EF9F27' : 'rgba(248,250,252,0.88)' }}
-        >
+        <span className="font-bold text-base"
+          style={{ color: isOpen ? '#10B981' : 'rgba(248,250,252,0.88)' }}>
           {faq.question}
         </span>
-        <span style={{ color: isOpen ? '#EF9F27' : 'rgba(255,255,255,0.35)', flexShrink: 0 }}>
+        <span style={{ color: isOpen ? '#10B981' : 'rgba(255,255,255,0.35)', flexShrink: 0 }}>
           <ChevronIcon open={isOpen} />
         </span>
       </button>
 
-      <div
-        className="overflow-hidden"
-        style={{ maxHeight: isOpen ? '360px' : '0', transition: 'max-height 0.35s cubic-bezier(0.22,1,0.36,1)' }}
-      >
-        <div className="px-6 pb-6" style={{ background: 'rgba(255,255,255,0.02)' }}>
-          <div className="w-full h-px mb-4" style={{ background: 'rgba(239,159,39,0.15)' }} />
+      <div className="overflow-hidden"
+        style={{ maxHeight: isOpen ? '360px' : '0', transition: 'max-height 0.35s cubic-bezier(0.22,1,0.36,1)' }}>
+        <div className="px-6 pb-6" style={{ background: 'rgba(255,255,255,0.015)' }}>
+          <div className="w-full h-px mb-4" style={{ background: 'rgba(16,185,129,0.15)' }} />
           <p className="leading-relaxed" style={{ color: 'rgba(248,250,252,0.6)' }}>
             {faq.answer}
           </p>
@@ -80,43 +74,24 @@ function FAQItem({ faq, isOpen, onToggle }) {
   )
 }
 
-function FAQList({ openIndex, setOpenIndex }) {
-  const [ref, inView] = useInView(0.05)
-  return (
-    <div ref={ref} className={`space-y-3 fade-in-section ${inView ? 'visible' : ''}`}>
-      {faqs.map((faq, index) => (
-        <FAQItem
-          key={index}
-          faq={faq}
-          isOpen={openIndex === index}
-          onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
-        />
-      ))}
-    </div>
-  )
-}
-
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0)
   const [ref, inView] = useInView()
+  const [listRef, listInView] = useInView(0.05)
 
   return (
-    <section id="faq" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: '#0D1B2A' }}>
-      {/* Subtle top glow */}
-      <div
-        className="absolute top-0 right-0 w-[400px] h-[250px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 100% 0%, rgba(239,159,39,0.04) 0%, transparent 65%)' }}
-        aria-hidden="true"
-      />
+    <section id="faq" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: '#111F16' }}>
+      <div className="absolute top-0 right-0 w-[400px] h-[250px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 100% 0%, rgba(16,185,129,0.05) 0%, transparent 65%)' }}
+        aria-hidden="true" />
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
-        {/* Header */}
         <div ref={ref} className={`text-center mb-14 fade-in-section ${inView ? 'visible' : ''}`}>
           <div
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold mb-5"
-            style={{ background: 'rgba(239,159,39,0.08)', border: '1px solid rgba(239,159,39,0.2)', color: '#EF9F27' }}
+            style={{ background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', color: '#10B981' }}
           >
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="#EF9F27" aria-hidden="true">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="#10B981" aria-hidden="true">
               <path d="M6 0l1.5 4.5H12L8.25 7.2l1.5 4.5L6 9 2.25 11.7l1.5-4.5L0 4.5h4.5z" />
             </svg>
             FAQ
@@ -127,18 +102,22 @@ export default function FAQ() {
           </h2>
           <p className="text-lg" style={{ color: 'rgba(248,250,252,0.5)' }}>
             Не нашёл ответ? Напиши нам —{' '}
-            <a
-              href="mailto:support@waqtiai.app"
+            <a href="mailto:support@waqtiai.app"
               className="hover:underline font-medium cursor-pointer"
-              style={{ color: '#EF9F27' }}
-            >
+              style={{ color: '#10B981' }}>
               support@waqtiai.app
             </a>
           </p>
         </div>
 
-        {/* Accordion */}
-        <FAQList openIndex={openIndex} setOpenIndex={setOpenIndex} />
+        <div ref={listRef} className={`space-y-3 fade-in-section ${listInView ? 'visible' : ''}`}>
+          {faqs.map((faq, index) => (
+            <FAQItem key={index} faq={faq}
+              isOpen={openIndex === index}
+              onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   )
