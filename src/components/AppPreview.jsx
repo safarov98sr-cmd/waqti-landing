@@ -21,7 +21,7 @@ export default function AppPreview() {
   const screenContent = [<ScreenHome />, <ScreenPlanner />, <ScreenAnalytics />, <ScreenCoach />]
 
   return (
-    <section id="app-preview" className="relative py-20 sm:py-28 lg:py-32 overflow-hidden" style={{ background: '#0A0F0D' }}>
+    <section id="app-preview" className="relative py-20 sm:py-28 lg:py-32 overflow-hidden" style={{ background: 'var(--bg-page)' }}>
       <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[300px] h-[400px] pointer-events-none"
         style={{ background: 'radial-gradient(ellipse at 0% 50%, rgba(16,185,129,0.05) 0%, transparent 70%)' }}
         aria-hidden="true" />

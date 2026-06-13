@@ -2,6 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme CSS Variables ── */
+:root {
+  /* Light mode (default) */
+  --bg-page:         #FFFFFF;
+  --bg-deep:         #F3F4F6;
+  --bg-s1:           #F9FAFB;
+  --bg-s2:           #F0FDF4;
+  --hero-bg:         linear-gradient(140deg, #F9FAFB 0%, #F0FDF4 55%, #F9FAFB 100%);
+  --nav-scrolled:    rgba(255,255,255,0.97);
+  --nav-border:      rgba(0,0,0,0.08);
+  --card-bg:         #FFFFFF;
+  --card-border:     #E5E7EB;
+  --card-hover-border: rgba(16,185,129,0.4);
+  --text-h:          #064E3B;
+  --text-body:       #111827;
+  --text-muted:      #374151;
+  --text-xmuted:     #6B7280;
+  --divider:         rgba(0,0,0,0.07);
+  --nav-link:        #374151;
+  --nav-link-hover:  #10B981;
+  --mmenu-bg:        rgba(255,255,255,0.99);
+  --mmenu-border:    rgba(0,0,0,0.08);
+  --icon-bg:         rgba(16,185,129,0.12);
+  --icon-border:     rgba(16,185,129,0.35);
+  --icon-glow:       rgba(16,185,129,0.18);
+  --phone-bg:        #0A0F0D;
+  --phone-deep:      #060C08;
+  --phone-s1:        #0D1A12;
+  --pattern-fill:    rgba(16,185,129,0.08);
+  --pattern-stroke:  rgba(16,185,129,0.06);
+  --rosette-stroke:  rgba(16,185,129,0.18);
+  --scroll-hint:     rgba(16,185,129,0.2);
+  --faq-inner-bg:    rgba(16,185,129,0.04);
+  --faq-closed-bg:   rgba(0,0,0,0.015);
+}
+
+html[data-theme="dark"] {
+  --bg-page:         #0A0F0D;
+  --bg-deep:         #060C08;
+  --bg-s1:           #0D1A12;
+  --bg-s2:           #111F16;
+  --hero-bg:         linear-gradient(140deg, #0A0F0D 0%, #0D1A12 55%, #0A0F0D 100%);
+  --nav-scrolled:    rgba(10,15,13,0.92);
+  --nav-border:      rgba(16,185,129,0.1);
+  --card-bg:         rgba(255,255,255,0.03);
+  --card-border:     rgba(255,255,255,0.1);
+  --card-hover-border: rgba(16,185,129,0.28);
+  --text-h:          #FFFFFF;
+  --text-body:       rgba(248,250,252,0.75);
+  --text-muted:      rgba(255,255,255,0.5);
+  --text-xmuted:     rgba(255,255,255,0.28);
+  --divider:         rgba(255,255,255,0.07);
+  --nav-link:        rgba(248,250,252,0.6);
+  --nav-link-hover:  #10B981;
+  --mmenu-bg:        rgba(10,15,13,0.96);
+  --mmenu-border:    rgba(16,185,129,0.12);
+  --icon-bg:         rgba(16,185,129,0.13);
+  --icon-border:     rgba(16,185,129,0.38);
+  --icon-glow:       rgba(16,185,129,0.28);
+  --phone-bg:        #0A0F0D;
+  --phone-deep:      #060C08;
+  --phone-s1:        #0D1A12;
+  --pattern-fill:    rgba(16,185,129,0.13);
+  --pattern-stroke:  rgba(16,185,129,0.07);
+  --rosette-stroke:  rgba(16,185,129,0.45);
+  --scroll-hint:     rgba(16,185,129,0.3);
+  --faq-inner-bg:    rgba(16,185,129,0.04);
+  --faq-closed-bg:   rgba(255,255,255,0.02);
+}
+
+/* ── Smooth theme transitions ── */
+*, *::before, *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ── Base ── */
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -11,8 +87,8 @@
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-    background: #0A0F0D;
-    color: #F8FAFC;
+    background: var(--bg-page);
+    color: var(--text-body);
   }
   h1, h2, h3 {
     font-weight: 800;
@@ -22,10 +98,10 @@
 @layer utilities {
   /* Glassmorphism */
   .glass {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--card-bg);
     backdrop-filter: blur(16px) saturate(150%);
     -webkit-backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border: 1px solid var(--card-border);
   }
   .glass-emerald {
     background: rgba(16, 185, 129, 0.06);
@@ -59,7 +135,7 @@
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 .fade-in-section.visible {
   opacity: 1;
@@ -77,7 +153,7 @@
 }
 .btn-pulse {
   animation: pulse-ring 2.5s ease-in-out infinite;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
 }
 .btn-pulse:hover {
   animation: none;
@@ -90,13 +166,19 @@
   0%, 100% { transform: translateY(0); }
   50%       { transform: translateY(-10px); }
 }
-.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+  transition: none !important;
+}
 
 /* ── Slow rotation (decorative rosette) ── */
 @keyframes spin-slow {
   to { transform: rotate(360deg); }
 }
-.animate-spin-slow { animation: spin-slow 80s linear infinite; }
+.animate-spin-slow {
+  animation: spin-slow 80s linear infinite;
+  transition: none !important;
+}
 
 /* ── 3-D Flip Card ── */
 .flip-card { perspective: 1200px; }
@@ -105,7 +187,7 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) !important;
 }
 @media (hover: hover) {
   .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }

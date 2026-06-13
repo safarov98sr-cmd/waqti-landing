@@ -41,7 +41,7 @@ function StepCard({ step, index }) {
         </div>
         <div
           className="absolute -top-1 -right-1 w-7 h-7 rounded-full flex items-center justify-center text-sm"
-          style={{ background: 'rgba(10,15,13,0.95)', border: '1px solid rgba(16,185,129,0.25)' }}
+          style={{ background: 'var(--bg-s2)', border: '1px solid rgba(16,185,129,0.25)' }}
         >
           {step.emoji}
         </div>
@@ -50,31 +50,32 @@ function StepCard({ step, index }) {
       <div
         className="w-full rounded-3xl p-6 sm:p-7 cursor-default transition-all duration-300"
         style={{
-          background: 'rgba(255,255,255,0.03)',
+          background: 'var(--card-bg)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255,255,255,0.07)',
+          border: '1.5px solid var(--card-border)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.06)',
         }}
         onMouseEnter={e => {
           e.currentTarget.style.transform = 'translateY(-4px)'
-          e.currentTarget.style.borderColor = 'rgba(16,185,129,0.22)'
-          e.currentTarget.style.boxShadow = '0 8px 40px rgba(0,0,0,0.3)'
+          e.currentTarget.style.borderColor = 'rgba(16,185,129,0.35)'
+          e.currentTarget.style.boxShadow = '0 8px 40px rgba(0,0,0,0.12)'
         }}
         onMouseLeave={e => {
           e.currentTarget.style.transform = ''
-          e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'
-          e.currentTarget.style.boxShadow = ''
+          e.currentTarget.style.borderColor = 'var(--card-border)'
+          e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)'
         }}
       >
-        <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-        <p className="text-sm leading-relaxed mb-4" style={{ color: 'rgba(248,250,252,0.55)' }}>
+        <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-h)' }}>{step.title}</h3>
+        <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-muted)' }}>
           {step.desc}
         </p>
         <span
           className="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full"
-          style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', color: '#10B981' }}
+          style={{ background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.28)', color: '#D97706' }}
         >
-          <svg width="8" height="8" viewBox="0 0 12 12" fill="#10B981" aria-hidden="true">
+          <svg width="8" height="8" viewBox="0 0 12 12" fill="#F59E0B" aria-hidden="true">
             <path d="M6 0l1.5 4.5H12L8.25 7.2l1.5 4.5L6 9 2.25 11.7l1.5-4.5L0 4.5h4.5z" />
           </svg>
           {step.detail}
@@ -88,9 +89,9 @@ export default function HowItWorks() {
   const [ref, inView] = useInView()
 
   return (
-    <section id="how-it-works" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: '#111F16' }}>
+    <section id="how-it-works" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-s2)' }}>
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.05) 0%, transparent 65%)' }}
+        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.04) 0%, transparent 65%)' }}
         aria-hidden="true" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
@@ -104,11 +105,11 @@ export default function HowItWorks() {
             </svg>
             Как работает
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-4 leading-tight" style={{ color: 'var(--text-h)' }}>
             Три шага до{' '}
             <span className="text-gradient">нового ритма жизни</span>
           </h2>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(248,250,252,0.5)' }}>
+          <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-muted)' }}>
             Waqti не требует сложной настройки. Начни за 2 минуты.
           </p>
         </div>

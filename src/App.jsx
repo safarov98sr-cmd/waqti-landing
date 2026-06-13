@@ -1,3 +1,4 @@
+import { ThemeProvider } from './ThemeContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Features from './components/Features'
@@ -8,9 +9,9 @@ import Reviews from './components/Reviews'
 import FAQ from './components/FAQ'
 import Footer from './components/Footer'
 
-export default function App() {
+function AppInner() {
   return (
-    <div className="min-h-screen font-sans" style={{ background: '#0A0F0D', color: '#F8FAFC' }}>
+    <div className="min-h-screen font-sans" style={{ background: 'var(--bg-page)', color: 'var(--text-body)' }}>
       <Navbar />
       <main>
         <Hero />
@@ -23,5 +24,13 @@ export default function App() {
       </main>
       <Footer />
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <AppInner />
+    </ThemeProvider>
   )
 }

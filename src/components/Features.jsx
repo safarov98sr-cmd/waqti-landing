@@ -1,9 +1,7 @@
 import { useInView } from '../hooks/useInView'
 
-/* ── Decorative 8-pointed star ── */
 const STAR_32 = "16,2 18.3,10.5 25.9,6.1 21.5,13.7 30,16 21.5,18.3 25.9,25.9 18.3,21.5 16,30 13.7,21.5 6.1,25.9 10.5,18.3 2,16 10.5,13.7 6.1,6.1 13.7,10.5"
 
-/* ── Icon paths ── */
 const ICONS = {
   prayer: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
   ai:     'M13 3l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z',
@@ -21,7 +19,7 @@ function PrayerBack() {
     { name: 'Иша',    time: '21:30', done: false, active: false },
   ]
   return (
-    <div className="p-7 h-full flex flex-col">
+    <div className="p-7 h-full flex flex-col" style={{ background: 'rgba(13,26,18,0.98)' }}>
       <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
         Намазы сегодня
       </p>
@@ -62,7 +60,7 @@ function PlannerBack() {
     { time: '17:30', text: 'Спорт 40 мин', type: 'task' },
   ]
   return (
-    <div className="p-7 h-full flex flex-col">
+    <div className="p-7 h-full flex flex-col" style={{ background: 'rgba(13,26,18,0.98)' }}>
       <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
         ИИ-план на сегодня
       </p>
@@ -90,7 +88,7 @@ function PlannerBack() {
 function AnalyticsBack() {
   const days = [5, 5, 3, 5, 5, 4, 2]
   return (
-    <div className="p-7 h-full flex flex-col">
+    <div className="p-7 h-full flex flex-col" style={{ background: 'rgba(13,26,18,0.98)' }}>
       <p className="text-xs font-bold uppercase tracking-wider mb-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
         Твои результаты
       </p>
@@ -128,7 +126,7 @@ function CoachBack() {
     { from: 'ai',   text: '✓ Готово! Серия намазов продолжается.' },
   ]
   return (
-    <div className="p-7 h-full flex flex-col">
+    <div className="p-7 h-full flex flex-col" style={{ background: 'rgba(13,26,18,0.98)' }}>
       <div className="flex items-center gap-2 mb-4">
         <div className="w-6 h-6 rounded-full flex items-center justify-center text-xs"
           style={{ background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)' }}>✦</div>
@@ -167,6 +165,7 @@ const features = [
     title: 'Намаз в центре дня',
     desc: 'Расписание 5 намазов интегрировано в твой планнер. День строится вокруг намазов, а не вопреки им.',
     tag: 'Геолокация · Точность до секунды',
+    tagColor: 'emerald',
     Back: PrayerBack,
   },
   {
@@ -174,6 +173,7 @@ const features = [
     title: 'ИИ-планировщик',
     desc: 'Умный алгоритм расставляет твои задачи между намазами так, чтобы ты успевал всё.',
     tag: 'GPT-4 · Персонализация',
+    tagColor: 'gold',
     Back: PlannerBack,
   },
   {
@@ -181,6 +181,7 @@ const features = [
     title: 'Глубокая аналитика',
     desc: 'Серии намазов, прогресс задач, продуктивность по дням — всё в одном дашборде.',
     tag: 'Дашборд · Недельный отчёт',
+    tagColor: 'emerald',
     Back: AnalyticsBack,
   },
   {
@@ -188,70 +189,85 @@ const features = [
     title: 'ИИ-коуч',
     desc: 'Персональный помощник, который понимает твой ритм жизни и помогает двигаться вперёд.',
     tag: 'AI · Поддержка 24/7',
+    tagColor: 'gold',
     Back: CoachBack,
   },
 ]
 
-/* ── Card component ── */
 function FeatureCard({ feature, delay }) {
   const [ref, inView] = useInView(0.08)
-  const { icon, title, desc, tag, Back } = feature
+  const { icon, title, desc, tag, tagColor, Back } = feature
+
+  const isGold = tagColor === 'gold'
 
   const CARD_STYLE = {
-    background: 'rgba(255,255,255,0.03)',
+    background: 'var(--card-bg)',
     backdropFilter: 'blur(12px)',
     WebkitBackdropFilter: 'blur(12px)',
-    border: '1px solid rgba(255,255,255,0.08)',
+    border: '1.5px solid var(--card-border)',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.08)',
   }
   const BACK_STYLE = {
     background: 'rgba(13,26,18,0.98)',
-    border: '1px solid rgba(16,185,129,0.2)',
+    border: '1.5px solid rgba(16,185,129,0.2)',
   }
 
   return (
     <div ref={ref} className={`fade-in-section delay-${delay} ${inView ? 'visible' : ''}`}>
-      {/* Flip card shell */}
-      <div className="flip-card rounded-3xl" style={{ minHeight: 310 }}>
+      <div className="flip-card rounded-3xl" style={{ minHeight: 330 }}>
         <div className="flip-card-inner rounded-3xl">
 
           {/* FRONT */}
           <div className="flip-card-front rounded-3xl p-7 flex flex-col" style={CARD_STYLE}>
             {/* Decorative corner star */}
             <svg
-              className="absolute top-5 right-5 opacity-15 pointer-events-none"
+              className="absolute top-5 right-5 pointer-events-none"
               width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"
-              style={{ position: 'absolute' }}
+              style={{ position: 'absolute', opacity: isGold ? 0.18 : 0.14 }}
             >
-              <polygon points={STAR_32} fill="#10B981" />
+              <polygon points={STAR_32} fill={isGold ? '#F59E0B' : '#10B981'} />
             </svg>
 
-            {/* Octagonal icon */}
+            {/* Icon container — large, glowing */}
             <div
-              className="w-14 h-14 flex items-center justify-center mb-5 flex-shrink-0"
+              className="w-[72px] h-[72px] flex items-center justify-center mb-6 flex-shrink-0"
               style={{
-                background: 'rgba(16,185,129,0.09)',
-                border: '1px solid rgba(16,185,129,0.22)',
+                background: isGold
+                  ? 'rgba(245,158,11,0.12)'
+                  : 'var(--icon-bg)',
+                border: isGold
+                  ? '1.5px solid rgba(245,158,11,0.38)'
+                  : '1.5px solid var(--icon-border)',
+                boxShadow: isGold
+                  ? '0 0 28px rgba(245,158,11,0.22), inset 0 0 20px rgba(245,158,11,0.06)'
+                  : '0 0 28px var(--icon-glow), inset 0 0 20px rgba(16,185,129,0.05)',
                 clipPath: 'polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%)',
               }}
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d={ICONS[icon]} stroke="#10B981" strokeWidth="1.8"
-                  strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d={ICONS[icon]}
+                  stroke={isGold ? '#F59E0B' : '#10B981'}
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
 
-            <h3 className="text-lg font-bold text-white mb-2">{title}</h3>
-            <p className="text-sm leading-relaxed flex-1" style={{ color: 'rgba(248,250,252,0.55)' }}>{desc}</p>
+            <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text-h)' }}>{title}</h3>
+            <p className="text-sm leading-relaxed flex-1" style={{ color: 'var(--text-muted)' }}>{desc}</p>
 
-            {/* Tag + hover hint */}
             <div className="mt-5 flex items-center justify-between">
               <span
                 className="text-xs font-semibold px-3 py-1.5 rounded-full"
-                style={{ background: 'rgba(16,185,129,0.09)', border: '1px solid rgba(16,185,129,0.18)', color: '#10B981' }}
+                style={isGold
+                  ? { background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.25)', color: '#D97706' }
+                  : { background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)', color: '#059669' }
+                }
               >
                 {tag}
               </span>
-              <span className="text-[10px]" style={{ color: 'rgba(255,255,255,0.2)' }}>Наведи →</span>
+              <span className="text-[10px]" style={{ color: 'var(--text-xmuted)' }}>Наведи →</span>
             </div>
           </div>
 
@@ -266,18 +282,16 @@ function FeatureCard({ feature, delay }) {
   )
 }
 
-/* ── Section ── */
 export default function Features() {
   const [ref, inView] = useInView()
 
   return (
-    <section id="features" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: '#0D1A12' }}>
+    <section id="features" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-s1)' }}>
       <div className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(16,185,129,0.05) 0%, transparent 65%)' }}
+        style={{ background: 'radial-gradient(ellipse at 50% 100%, rgba(16,185,129,0.04) 0%, transparent 65%)' }}
         aria-hidden="true" />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
-        {/* Header */}
         <div ref={ref} className={`text-center mb-16 fade-in-section ${inView ? 'visible' : ''}`}>
           <div
             className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold mb-5"
@@ -288,16 +302,15 @@ export default function Features() {
             </svg>
             Возможности
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-4 leading-tight" style={{ color: 'var(--text-h)' }}>
             Всё что нужно для{' '}
             <span className="text-gradient">осознанного дня</span>
           </h2>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(248,250,252,0.5)' }}>
+          <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-muted)' }}>
             Наведи на карточку, чтобы увидеть Waqti в действии.
           </p>
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {features.map((f, i) => (
             <FeatureCard key={f.icon} feature={f} delay={i} />

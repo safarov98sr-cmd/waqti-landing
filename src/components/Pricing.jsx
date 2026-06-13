@@ -49,8 +49,8 @@ const CheckIcon = ({ available, highlight }) =>
     </svg>
   ) : (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="flex-shrink-0" aria-label="Недоступно">
-      <circle cx="10" cy="10" r="10" fill="rgba(255,255,255,0.04)" />
-      <path d="M7 10h6" stroke="rgba(255,255,255,0.18)" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="10" cy="10" r="10" fill="rgba(0,0,0,0.04)" />
+      <path d="M7 10h6" stroke="rgba(128,128,128,0.35)" strokeWidth="2" strokeLinecap="round" />
     </svg>
   )
 
@@ -58,9 +58,9 @@ export default function Pricing() {
   const [ref, inView] = useInView()
 
   return (
-    <section id="pricing" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: '#0A0F0D' }}>
+    <section id="pricing" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: 'var(--bg-page)' }}>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[200px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.06) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.05) 0%, transparent 70%)' }}
         aria-hidden="true" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6">
@@ -74,11 +74,11 @@ export default function Pricing() {
             </svg>
             Тарифы
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-4 leading-tight" style={{ color: 'var(--text-h)' }}>
             Честные цены,{' '}
             <span className="text-gradient">без скрытого</span>
           </h2>
-          <p className="text-lg max-w-xl mx-auto" style={{ color: 'rgba(248,250,252,0.5)' }}>
+          <p className="text-lg max-w-xl mx-auto" style={{ color: 'var(--text-muted)' }}>
             Начни бесплатно, переходи на премиум когда будешь готов.
           </p>
         </div>
@@ -88,7 +88,7 @@ export default function Pricing() {
           <PricingCard plan={plans[1]} delay={1} />
         </div>
 
-        <p className="text-center text-sm mt-10" style={{ color: 'rgba(255,255,255,0.3)' }}>
+        <p className="text-center text-sm mt-10" style={{ color: 'var(--text-xmuted)' }}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" className="inline-block mr-1.5 align-middle" aria-hidden="true">
             <rect x="3" y="11" width="18" height="11" rx="2" stroke="currentColor" strokeWidth="2" />
             <path d="M7 11V7a5 5 0 0110 0v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -111,11 +111,10 @@ function PricingCard({ plan, delay }) {
           style={{
             background: 'linear-gradient(155deg, #0D1F15 0%, #0A1810 55%, #0A0F0D 100%)',
             border: '1px solid rgba(245,158,11,0.28)',
-            boxShadow: '0 24px 80px rgba(0,0,0,0.5), 0 0 40px rgba(16,185,129,0.06)',
+            boxShadow: '0 24px 80px rgba(0,0,0,0.3), 0 0 40px rgba(16,185,129,0.06)',
             padding: 'clamp(28px,5vw,36px) clamp(24px,4vw,32px)',
           }}
         >
-          {/* Badge */}
           <div className="absolute -top-4 left-1/2 -translate-x-1/2">
             <span
               className="text-sm font-bold px-5 py-2 rounded-full"
@@ -134,13 +133,13 @@ function PricingCard({ plan, delay }) {
               {plan.name}
             </div>
             <div className="flex items-end gap-2 mb-1.5">
-              <span className="text-5xl font-black text-white">{plan.price}</span>
+              <span className="text-5xl font-black" style={{ color: '#F59E0B' }}>{plan.price}</span>
               <span className="text-sm mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}>/{plan.period}</span>
             </div>
             <p className="text-sm" style={{ color: 'rgba(255,255,255,0.55)' }}>{plan.description}</p>
           </div>
 
-          <div className="w-full h-px mb-6" style={{ background: 'rgba(245,158,11,0.12)' }} />
+          <div className="w-full h-px mb-6" style={{ background: 'rgba(245,158,11,0.15)' }} />
 
           <ul className="space-y-3.5 mb-8 flex-1">
             {plan.features.map((f, i) => (
@@ -181,35 +180,35 @@ function PricingCard({ plan, delay }) {
   return (
     <div ref={ref} className={`fade-in-section delay-${delay} ${inView ? 'visible' : ''} flex-1`}>
       <div
-        className="relative rounded-3xl flex flex-col h-full p-7 sm:p-8 transition-colors duration-250"
+        className="relative rounded-3xl flex flex-col h-full p-7 sm:p-8"
         style={{
-          background: 'rgba(255,255,255,0.03)',
+          background: 'var(--card-bg)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255,255,255,0.07)',
+          border: '1.5px solid var(--card-border)',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
         }}
-        onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(16,185,129,0.22)' }}
-        onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)' }}
+        onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(16,185,129,0.35)' }}
+        onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--card-border)' }}
       >
         <div className="mb-6">
-          <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(255,255,255,0.4)' }}>
+          <div className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--text-xmuted)' }}>
             {plan.name}
           </div>
           <div className="flex items-end gap-2 mb-1.5">
-            <span className="text-4xl font-black text-white">{plan.price}</span>
-            <span className="text-sm mb-1.5" style={{ color: 'rgba(255,255,255,0.4)' }}>/{plan.period}</span>
+            <span className="text-4xl font-black" style={{ color: '#F59E0B' }}>{plan.price}</span>
+            <span className="text-sm mb-1.5" style={{ color: 'var(--text-xmuted)' }}>/{plan.period}</span>
           </div>
-          <p className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>{plan.description}</p>
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{plan.description}</p>
         </div>
 
-        <div className="w-full h-px mb-6" style={{ background: 'rgba(255,255,255,0.07)' }} />
+        <div className="w-full h-px mb-6" style={{ background: 'var(--divider)' }} />
 
         <ul className="space-y-3.5 mb-7 flex-1">
           {plan.features.map((f, i) => (
             <li key={i} className="flex items-center gap-3">
               <CheckIcon available={f.available} highlight={false} />
-              <span className="text-sm"
-                style={{ color: f.available ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.22)' }}>
+              <span className="text-sm" style={{ color: f.available ? 'var(--text-body)' : 'var(--text-xmuted)' }}>
                 {f.text}
               </span>
             </li>
@@ -219,14 +218,14 @@ function PricingCard({ plan, delay }) {
         <a
           href="#"
           className="block text-center font-bold px-6 py-4 rounded-2xl cursor-pointer transition-all duration-200"
-          style={{ border: '1px solid rgba(16,185,129,0.35)', color: '#10B981' }}
+          style={{ border: '1.5px solid rgba(16,185,129,0.4)', color: '#10B981' }}
           onMouseEnter={e => {
             e.currentTarget.style.background = 'rgba(16,185,129,0.08)'
-            e.currentTarget.style.borderColor = 'rgba(16,185,129,0.55)'
+            e.currentTarget.style.borderColor = 'rgba(16,185,129,0.6)'
           }}
           onMouseLeave={e => {
             e.currentTarget.style.background = ''
-            e.currentTarget.style.borderColor = 'rgba(16,185,129,0.35)'
+            e.currentTarget.style.borderColor = 'rgba(16,185,129,0.4)'
           }}
         >
           {plan.cta}
