@@ -1,9 +1,36 @@
-const ClockIcon = () => (
-  <svg width="26" height="26" viewBox="0 0 28 28" fill="none">
-    <circle cx="14" cy="14" r="12" stroke="white" strokeWidth="2.2" fill="white" fillOpacity="0.1"/>
-    <circle cx="14" cy="14" r="1.8" fill="white"/>
-    <line x1="14" y1="14" x2="14" y2="7" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-    <line x1="14" y1="14" x2="19" y2="16.5" stroke="#EF9F27" strokeWidth="2" strokeLinecap="round"/>
+function WaqtiLogoFooter() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-label="Waqti логотип">
+      <circle cx="14" cy="14" r="12" stroke="#EF9F27" strokeWidth="1.8" fill="rgba(239,159,39,0.08)" />
+      <circle cx="14" cy="14" r="1.8" fill="#EF9F27" />
+      <line x1="14" y1="14" x2="14" y2="7" stroke="#EF9F27" strokeWidth="2" strokeLinecap="round" />
+      <line x1="14" y1="14" x2="19" y2="16.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => {
+        const a = (deg * Math.PI) / 180
+        return (
+          <circle
+            key={i}
+            cx={+(14 + 12 * Math.cos(a)).toFixed(2)}
+            cy={+(14 + 12 * Math.sin(a)).toFixed(2)}
+            r="1"
+            fill="#EF9F27"
+            opacity={i % 2 === 0 ? 0.6 : 0.25}
+          />
+        )
+      })}
+    </svg>
+  )
+}
+
+const AppleIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-label="App Store" opacity="0.85">
+    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.22.14-2.18 1.3-2.16 3.88.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.37 2.7zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+  </svg>
+)
+
+const AndroidIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="white" aria-label="Google Play" opacity="0.85">
+    <path d="M3 20.5v-17c0-.83.94-1.3 1.6-.8l14 8.5c.6.37.6 1.23 0 1.6l-14 8.5c-.66.5-1.6.03-1.6-.8z" />
   </svg>
 )
 
@@ -37,38 +64,59 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white">
+    <footer style={{ background: '#030810', color: '#F8FAFC' }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-        {/* Grid: 1 col mobile → 2 col sm → 4 col lg */}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-8">
 
-          {/* Brand — full width on mobile */}
+          {/* Brand column */}
           <div className="col-span-2 sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <ClockIcon />
-              <span className="text-xl font-bold tracking-tight">Waqti</span>
-            </div>
-            <p className="text-white/60 text-sm leading-relaxed mb-5 max-w-xs">
+            <a href="#" className="flex items-center gap-2.5 mb-4 cursor-pointer w-fit">
+              <WaqtiLogoFooter />
+              <span className="text-xl font-bold tracking-tight text-white">Waqti</span>
+            </a>
+            <p className="text-sm leading-relaxed mb-5 max-w-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
               ИИ-планировщик для мусульман. Управляй временем с нийей — вокруг намазов, по велению сердца.
             </p>
-            {/* Store buttons — wrap on mobile */}
+
+            {/* Store buttons */}
             <div className="flex flex-wrap gap-2.5">
-              <a href="#"
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors rounded-xl px-3.5 py-2 text-sm font-medium border border-white/10">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M12.5 2C11.1 2 10.1 2.8 9.5 3.5 8.9 2.8 7.9 2 6.5 2 4.6 2 3 3.6 3 5.5c0 2.7 2.5 5 6.5 8.5 4-3.5 6.5-5.8 6.5-8.5C16 3.6 14.4 2 12.5 2z" fill="white" opacity="0.9"/>
-                </svg>
-                App Store
+              <a
+                href="#"
+                className="flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium cursor-pointer transition-all duration-200"
+                style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(239,159,39,0.15)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
+                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.3)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
+                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.15)'
+                }}
+              >
+                <AppleIcon />
+                <span className="text-white/85">App Store</span>
               </a>
-              <a href="#"
-                className="flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors rounded-xl px-3.5 py-2 text-sm font-medium border border-white/10">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                  <path d="M3 2.2L10.4 9 3 15.8c-.2-.3-.3-.6-.3-1V3.2c0-.4.1-.7.3-1z" fill="white" opacity="0.9"/>
-                  <path d="M13.2 6.3L11 8.4 3.6 2.6c.3-.2.8-.3 1.2-.1l8.4 3.8z" fill="white" opacity="0.9"/>
-                  <path d="M13.2 11.7l-2.2-2.1L3.6 15.4c.3.2.8.2 1.2 0l8.4-3.7z" fill="white" opacity="0.9"/>
-                  <path d="M15 9c0 .5-.3 1-.8 1.2l-1.6.7-2.2-2L11 7.7l1.6.7c.5.3.8.7.8 1.3z" fill="white" opacity="0.9"/>
-                </svg>
-                Google Play
+              <a
+                href="#"
+                className="flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-medium cursor-pointer transition-all duration-200"
+                style={{
+                  background: 'rgba(255,255,255,0.06)',
+                  border: '1px solid rgba(239,159,39,0.15)',
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
+                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.3)'
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
+                  e.currentTarget.style.borderColor = 'rgba(239,159,39,0.15)'
+                }}
+              >
+                <AndroidIcon />
+                <span className="text-white/85">Google Play</span>
               </a>
             </div>
           </div>
@@ -76,14 +124,19 @@ export default function Footer() {
           {/* Link groups */}
           {footerLinks.map((group) => (
             <div key={group.title} className="col-span-1">
-              <h4 className="text-xs font-bold text-white/80 uppercase tracking-wider mb-3 sm:mb-4">
+              <h4 className="text-xs font-bold uppercase tracking-wider mb-3 sm:mb-4" style={{ color: 'rgba(255,255,255,0.55)' }}>
                 {group.title}
               </h4>
               <ul className="space-y-2 sm:space-y-2.5">
                 {group.links.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href}
-                       className="text-white/50 hover:text-white text-sm transition-colors leading-relaxed">
+                    <a
+                      href={link.href}
+                      className="text-sm leading-relaxed cursor-pointer transition-colors duration-200"
+                      style={{ color: 'rgba(255,255,255,0.4)' }}
+                      onMouseEnter={e => { e.currentTarget.style.color = '#EF9F27' }}
+                      onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.4)' }}
+                    >
                       {link.label}
                     </a>
                   </li>
@@ -94,21 +147,42 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10" />
+      {/* Divider */}
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }} />
 
       {/* Bottom bar */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-5">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-white/40 text-sm text-center sm:text-left">
+          <p className="text-sm text-center sm:text-left" style={{ color: 'rgba(255,255,255,0.3)' }}>
             Каждая минута — аманат. Waqti помогает её беречь. © 2026
           </p>
           <div className="flex items-center gap-3 sm:gap-4 flex-wrap justify-center">
-            <a href="#" className="text-white/40 hover:text-gold transition-colors text-sm">Privacy</a>
-            <a href="#" className="text-white/40 hover:text-gold transition-colors text-sm">Terms</a>
-            {/* Status badge — hidden on very small screens to avoid overflow */}
-            <div className="hidden xs:flex items-center gap-1.5 bg-white/10 rounded-full px-3 py-1">
-              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"/>
-              <span className="text-white/50 text-xs whitespace-nowrap">All systems operational</span>
+            <a
+              href="#"
+              className="text-sm cursor-pointer transition-colors duration-200"
+              style={{ color: 'rgba(255,255,255,0.3)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = '#EF9F27' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.3)' }}
+            >
+              Privacy
+            </a>
+            <a
+              href="#"
+              className="text-sm cursor-pointer transition-colors duration-200"
+              style={{ color: 'rgba(255,255,255,0.3)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = '#EF9F27' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.3)' }}
+            >
+              Terms
+            </a>
+            <div
+              className="hidden xs:flex items-center gap-1.5 rounded-full px-3 py-1"
+              style={{ background: 'rgba(255,255,255,0.06)' }}
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+              <span className="text-xs whitespace-nowrap" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                All systems operational
+              </span>
             </div>
           </div>
         </div>

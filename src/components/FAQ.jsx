@@ -30,78 +30,53 @@ const faqs = [
 
 const ChevronIcon = ({ open }) => (
   <svg
-    width="22"
-    height="22"
-    viewBox="0 0 22 22"
-    fill="none"
-    className={`flex-shrink-0 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+    width="20" height="20" viewBox="0 0 22 22" fill="none"
+    style={{ flexShrink: 0, transition: 'transform 0.3s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}
+    aria-hidden="true"
   >
-    <path d="M5.5 8.5l5.5 5.5 5.5-5.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M5.5 8.5l5.5 5.5 5.5-5.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
-function FAQItem({ faq, isOpen, onToggle, index, totalVisible }) {
-  const delay = index < 3 ? index : 0
+function FAQItem({ faq, isOpen, onToggle }) {
   return (
     <div
-      className={`border-2 rounded-2xl overflow-hidden transition-all duration-250 ${
-        isOpen
-          ? 'border-primary/25 shadow-sm'
-          : 'border-gray-200 hover:border-primary/20'
-      }`}
+      className="rounded-2xl overflow-hidden"
+      style={{
+        border: `1px solid ${isOpen ? 'rgba(239,159,39,0.35)' : 'rgba(255,255,255,0.08)'}`,
+        boxShadow: isOpen ? '0 4px 24px rgba(0,0,0,0.2)' : 'none',
+        transition: 'border-color 0.25s, box-shadow 0.25s',
+      }}
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left bg-white hover:bg-primary-light/30 transition-colors"
+        className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left cursor-pointer transition-colors duration-200"
+        style={{ background: isOpen ? 'rgba(239,159,39,0.04)' : 'rgba(255,255,255,0.02)' }}
+        aria-expanded={isOpen}
       >
-        <span className={`font-bold text-base ${isOpen ? 'text-primary' : 'text-gray-800'}`}>
+        <span
+          className="font-bold text-base"
+          style={{ color: isOpen ? '#EF9F27' : 'rgba(248,250,252,0.88)' }}
+        >
           {faq.question}
         </span>
-        <span className={`transition-colors ${isOpen ? 'text-primary' : 'text-gray-400'}`}>
+        <span style={{ color: isOpen ? '#EF9F27' : 'rgba(255,255,255,0.35)', flexShrink: 0 }}>
           <ChevronIcon open={isOpen} />
         </span>
       </button>
 
       <div
-        className="overflow-hidden transition-all duration-300"
-        style={{ maxHeight: isOpen ? '320px' : '0' }}
+        className="overflow-hidden"
+        style={{ maxHeight: isOpen ? '360px' : '0', transition: 'max-height 0.35s cubic-bezier(0.22,1,0.36,1)' }}
       >
-        <div className="px-6 pb-6 bg-white">
-          <div className="w-full h-px bg-primary-light mb-4" />
-          <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+        <div className="px-6 pb-6" style={{ background: 'rgba(255,255,255,0.02)' }}>
+          <div className="w-full h-px mb-4" style={{ background: 'rgba(239,159,39,0.15)' }} />
+          <p className="leading-relaxed" style={{ color: 'rgba(248,250,252,0.6)' }}>
+            {faq.answer}
+          </p>
         </div>
       </div>
     </div>
-  )
-}
-
-export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(0)
-  const [ref, inView] = useInView()
-
-  return (
-    <section id="faq" className="py-24 sm:py-32 bg-white">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        {/* Header */}
-        <div ref={ref} className={`text-center mb-14 fade-in-section ${inView ? 'visible' : ''}`}>
-          <div className="inline-flex items-center gap-2 bg-primary-light text-primary rounded-full px-4 py-1.5 text-sm font-bold mb-5">
-            ✦ FAQ
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-gray-900 mb-4 leading-tight">
-            Часто задаваемые <span className="text-primary">вопросы</span>
-          </h2>
-          <p className="text-gray-500 text-lg">
-            Не нашёл ответ? Напиши нам —{' '}
-            <a href="mailto:support@waqtiai.app" className="text-primary hover:underline font-medium">
-              support@waqtiai.app
-            </a>
-          </p>
-        </div>
-
-        {/* Accordion */}
-        <FAQList openIndex={openIndex} setOpenIndex={setOpenIndex} />
-      </div>
-    </section>
   )
 }
 
@@ -113,11 +88,58 @@ function FAQList({ openIndex, setOpenIndex }) {
         <FAQItem
           key={index}
           faq={faq}
-          index={index}
           isOpen={openIndex === index}
           onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
         />
       ))}
     </div>
+  )
+}
+
+export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState(0)
+  const [ref, inView] = useInView()
+
+  return (
+    <section id="faq" className="relative py-24 sm:py-32 overflow-hidden" style={{ background: '#0D1B2A' }}>
+      {/* Subtle top glow */}
+      <div
+        className="absolute top-0 right-0 w-[400px] h-[250px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at 100% 0%, rgba(239,159,39,0.04) 0%, transparent 65%)' }}
+        aria-hidden="true"
+      />
+
+      <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
+        {/* Header */}
+        <div ref={ref} className={`text-center mb-14 fade-in-section ${inView ? 'visible' : ''}`}>
+          <div
+            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-bold mb-5"
+            style={{ background: 'rgba(239,159,39,0.08)', border: '1px solid rgba(239,159,39,0.2)', color: '#EF9F27' }}
+          >
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="#EF9F27" aria-hidden="true">
+              <path d="M6 0l1.5 4.5H12L8.25 7.2l1.5 4.5L6 9 2.25 11.7l1.5-4.5L0 4.5h4.5z" />
+            </svg>
+            FAQ
+          </div>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white mb-4 leading-tight">
+            Часто задаваемые{' '}
+            <span className="text-gradient">вопросы</span>
+          </h2>
+          <p className="text-lg" style={{ color: 'rgba(248,250,252,0.5)' }}>
+            Не нашёл ответ? Напиши нам —{' '}
+            <a
+              href="mailto:support@waqtiai.app"
+              className="hover:underline font-medium cursor-pointer"
+              style={{ color: '#EF9F27' }}
+            >
+              support@waqtiai.app
+            </a>
+          </p>
+        </div>
+
+        {/* Accordion */}
+        <FAQList openIndex={openIndex} setOpenIndex={setOpenIndex} />
+      </div>
+    </section>
   )
 }

@@ -1,13 +1,29 @@
 import { useState, useEffect } from 'react'
 
-const ClockIcon = () => (
-  <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="15" cy="15" r="13" stroke="#0F6E56" strokeWidth="2.2" fill="#E1F5EE"/>
-    <circle cx="15" cy="15" r="2" fill="#0F6E56"/>
-    <line x1="15" y1="15" x2="15" y2="7.5" stroke="#0F6E56" strokeWidth="2.2" strokeLinecap="round"/>
-    <line x1="15" y1="15" x2="20.5" y2="17.5" stroke="#EF9F27" strokeWidth="2.2" strokeLinecap="round"/>
-  </svg>
-)
+function WaqtiLogo() {
+  return (
+    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+      <circle cx="16" cy="16" r="13" stroke="#EF9F27" strokeWidth="1.5" fill="rgba(239,159,39,0.08)" />
+      <circle cx="16" cy="16" r="2" fill="#EF9F27" />
+      <line x1="16" y1="16" x2="16" y2="7.5" stroke="#EF9F27" strokeWidth="2" strokeLinecap="round" />
+      <line x1="16" y1="16" x2="21.5" y2="18.5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+      {/* 8 small dots around circle */}
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => {
+        const a = (deg * Math.PI) / 180
+        return (
+          <circle
+            key={i}
+            cx={16 + 13 * Math.cos(a)}
+            cy={16 + 13 * Math.sin(a)}
+            r="1.2"
+            fill="#EF9F27"
+            opacity={i % 2 === 0 ? 0.7 : 0.35}
+          />
+        )
+      })}
+    </svg>
+  )
+}
 
 const navLinks = [
   { label: 'Возможности', href: '#features' },
@@ -26,23 +42,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const scrollStyle = scrolled
+    ? {
+        background: 'rgba(7,15,26,0.88)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        boxShadow: '0 4px 32px rgba(0,0,0,0.45)',
+      }
+    : {}
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white border-b border-gray-100'
-          : 'bg-transparent'
-      }`}
-      style={scrolled ? { boxShadow: '0 2px 24px rgba(8, 80, 65, 0.10)' } : {}}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style={scrollStyle}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-[70px]">
+
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 group">
-            <ClockIcon />
-            <span className={`text-xl font-black tracking-tight transition-colors ${scrolled ? 'text-primary' : 'text-white'}`}>
-              Waqti
-            </span>
+          <a href="#" className="flex items-center gap-2.5 cursor-pointer">
+            <WaqtiLogo />
+            <span className="text-xl font-black tracking-tight text-white">Waqti</span>
           </a>
 
           {/* Desktop nav */}
@@ -51,9 +69,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  scrolled ? 'text-gray-600' : 'text-white/80 hover:text-white'
-                }`}
+                className="text-sm font-medium text-white/55 hover:text-white transition-colors duration-200 cursor-pointer"
               >
                 {link.label}
               </a>
@@ -64,7 +80,20 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href="#pricing"
-              className="bg-primary text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-dark transition-all hover:shadow-md hover:-translate-y-px"
+              className="text-sm font-bold px-5 py-2.5 rounded-xl cursor-pointer transition-all duration-200"
+              style={{
+                background: 'linear-gradient(135deg, #EF9F27 0%, #D4AF37 100%)',
+                color: '#07111A',
+                boxShadow: '0 4px 16px rgba(239,159,39,0.3)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-1px)'
+                e.currentTarget.style.boxShadow = '0 6px 24px rgba(239,159,39,0.45)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = ''
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(239,159,39,0.3)'
+              }}
             >
               Скачать бесплатно
             </a>
@@ -73,21 +102,19 @@ export default function Navbar() {
           {/* Mobile burger */}
           <button
             onClick={() => setOpen(!open)}
-            className={`md:hidden p-2 rounded-lg transition-colors ${
-              scrolled ? 'text-gray-700 hover:bg-primary-light' : 'text-white hover:bg-white/10'
-            }`}
-            aria-label="Меню"
+            className="md:hidden p-2 rounded-lg text-white/70 hover:text-white transition-colors cursor-pointer"
+            aria-label="Открыть меню"
           >
             {open ? (
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <line x1="4" y1="4" x2="18" y2="18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
-                <line x1="18" y1="4" x2="4" y2="18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+                <line x1="4" y1="4" x2="18" y2="18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                <line x1="18" y1="4" x2="4" y2="18" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               </svg>
             ) : (
               <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                <line x1="3" y1="6" x2="19" y2="6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
-                <line x1="3" y1="11" x2="19" y2="11" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
-                <line x1="3" y1="16" x2="14" y2="16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"/>
+                <line x1="3" y1="6" x2="19" y2="6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                <line x1="3" y1="11" x2="19" y2="11" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
+                <line x1="3" y1="16" x2="14" y2="16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" />
               </svg>
             )}
           </button>
@@ -96,14 +123,22 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t border-gray-100" style={{ boxShadow: '0 8px 32px rgba(8,80,65,0.12)' }}>
+        <div
+          style={{
+            background: 'rgba(7,15,26,0.97)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+          }}
+        >
           <div className="px-4 py-4 flex flex-col gap-1">
             {navLinks.map(link => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-primary hover:bg-primary-light rounded-xl transition-colors"
+                className="block px-3 py-3 text-base font-medium text-white/65 hover:text-white rounded-xl transition-colors cursor-pointer"
+                style={{ background: 'rgba(255,255,255,0.03)' }}
               >
                 {link.label}
               </a>
@@ -111,7 +146,11 @@ export default function Navbar() {
             <a
               href="#pricing"
               onClick={() => setOpen(false)}
-              className="mt-2 block text-center bg-primary text-white font-bold px-5 py-3.5 rounded-xl hover:bg-dark transition-colors"
+              className="mt-2 block text-center font-bold px-5 py-3.5 rounded-xl cursor-pointer"
+              style={{
+                background: 'linear-gradient(135deg, #EF9F27 0%, #D4AF37 100%)',
+                color: '#07111A',
+              }}
             >
               Скачать бесплатно
             </a>

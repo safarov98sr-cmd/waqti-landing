@@ -11,6 +11,8 @@
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    background: #070F1A;
+    color: #F8FAFC;
   }
   h1, h2, h3 {
     font-weight: 800;
@@ -18,44 +20,81 @@
 }
 
 @layer utilities {
-  .gradient-section {
-    background: linear-gradient(180deg, #ffffff 0%, #E1F5EE 100%);
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
+  .glass-gold {
+    background: rgba(239, 159, 39, 0.06);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid rgba(239, 159, 39, 0.2);
+  }
+  /* Gold gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #0F6E56, #EF9F27);
+    background: linear-gradient(135deg, #EF9F27 0%, #F5C05A 50%, #D4AF37 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 }
 
-/* Scroll fade-in */
+/* ── Scroll fade-in ── */
 .fade-in-section {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .fade-in-section.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.fade-in-section.delay-1 { transition-delay: 0.1s; }
-.fade-in-section.delay-2 { transition-delay: 0.2s; }
-.fade-in-section.delay-3 { transition-delay: 0.3s; }
+.fade-in-section.delay-1 { transition-delay: 0.12s; }
+.fade-in-section.delay-2 { transition-delay: 0.22s; }
+.fade-in-section.delay-3 { transition-delay: 0.32s; }
 
-/* CTA pulse ring */
+/* ── CTA pulse ring ── */
 @keyframes pulse-ring {
   0%   { box-shadow: 0 0 0 0   rgba(239, 159, 39, 0.55); }
-  65%  { box-shadow: 0 0 0 16px rgba(239, 159, 39, 0); }
+  65%  { box-shadow: 0 0 0 18px rgba(239, 159, 39, 0); }
   100% { box-shadow: 0 0 0 0   rgba(239, 159, 39, 0); }
 }
 .btn-pulse {
-  animation: pulse-ring 2.4s ease-in-out infinite;
+  animation: pulse-ring 2.5s ease-in-out infinite;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .btn-pulse:hover {
   animation: none;
   transform: scale(1.04) translateY(-2px);
-  box-shadow: 0 10px 32px rgba(239, 159, 39, 0.5);
+  box-shadow: 0 10px 36px rgba(239, 159, 39, 0.55);
+}
+
+/* ── Floating phone ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+.animate-float { animation: float 5s ease-in-out infinite; }
+
+/* ── Slow rotation (decorative rosette) ── */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 80s linear infinite; }
+
+/* ── Respect user motion preferences ── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-spin-slow,
+  .btn-pulse,
+  .fade-in-section {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
