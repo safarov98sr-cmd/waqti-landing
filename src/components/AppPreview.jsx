@@ -236,7 +236,7 @@ function ScreenHome() {
       <div className="flex justify-around py-2.5 px-3"
         style={{ background: '#060C08', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
         {tabIcons.map((d, i) => (
-          <div key={i} style={{ color: i === 0 ? '#10B981' : 'rgba(255,255,255,0.25)' }}>
+          <div key={i} style={{ color: i === 0 ? '#F59E0B' : 'rgba(245,158,11,0.45)' }}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
               <path d={d} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

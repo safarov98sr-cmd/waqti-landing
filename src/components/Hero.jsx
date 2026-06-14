@@ -267,7 +267,7 @@ export default function Hero() {
                     'M22 12h-4l-3 9L9 3l-3 9H2',
                     'M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z',
                   ].map((d, i) => (
-                    <div key={i} style={{ color: i === 0 ? '#10B981' : 'rgba(255,255,255,0.25)' }}>
+                    <div key={i} style={{ color: i === 0 ? '#F59E0B' : 'rgba(245,158,11,0.45)' }}>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                         <path d={d} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
