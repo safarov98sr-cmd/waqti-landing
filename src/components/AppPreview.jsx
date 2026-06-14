@@ -41,11 +41,11 @@ export default function AppPreview() {
             </svg>
             Превью приложения
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-white mb-3 sm:mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-3 sm:mb-4 leading-tight" style={{ color: 'var(--text-h)' }}>
             Каждый экран —{' '}
             <span className="text-gradient">продуман для тебя</span>
           </h2>
-          <p className="text-base sm:text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.45)' }}>
+          <p className="text-base sm:text-lg max-w-xl mx-auto" style={{ color: 'var(--text-muted)' }}>
             Красиво, быстро и без лишнего. Waqti уважает твоё время.
           </p>
         </div>
@@ -53,7 +53,7 @@ export default function AppPreview() {
         {/* Tabs */}
         <div className={`flex justify-center mb-8 sm:mb-10 fade-in-section delay-1 ${inView ? 'visible' : ''}`}>
           <div className="flex gap-1 sm:gap-1.5 p-1 sm:p-1.5 rounded-2xl overflow-x-auto"
-            style={{ background: 'rgba(255,255,255,0.04)', maxWidth: '100%' }}>
+            style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', maxWidth: '100%' }}>
             {screens.map((s, i) => (
               <button key={s.id} onClick={() => setActive(i)}
                 className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold flex-shrink-0 cursor-pointer transition-all duration-200"
@@ -62,11 +62,11 @@ export default function AppPreview() {
                   color: '#10B981',
                   border: '1px solid rgba(16,185,129,0.28)',
                 } : {
-                  color: 'rgba(255,255,255,0.45)',
+                  color: 'var(--text-xmuted)',
                   border: '1px solid transparent',
                 }}
-                onMouseEnter={e => { if (active !== i) e.currentTarget.style.color = 'rgba(255,255,255,0.75)' }}
-                onMouseLeave={e => { if (active !== i) e.currentTarget.style.color = 'rgba(255,255,255,0.45)' }}
+                onMouseEnter={e => { if (active !== i) e.currentTarget.style.color = 'var(--text-body)' }}
+                onMouseLeave={e => { if (active !== i) e.currentTarget.style.color = 'var(--text-xmuted)' }}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                   <path d={tabIcons[i]} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -141,7 +141,7 @@ export default function AppPreview() {
 
         {/* Description */}
         <div className={`text-center mt-8 sm:mt-10 fade-in-section delay-3 ${inView ? 'visible' : ''}`}>
-          <p className="text-sm sm:text-base max-w-md mx-auto px-4" style={{ color: 'rgba(255,255,255,0.4)' }}>
+          <p className="text-sm sm:text-base max-w-md mx-auto px-4" style={{ color: 'var(--text-muted)' }}>
             {screens[active].desc}
           </p>
         </div>

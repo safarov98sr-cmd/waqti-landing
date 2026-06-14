@@ -430,7 +430,7 @@ function FeatureCard({ feature, delay }) {
 
   return (
     <div ref={ref} className={`fade-in-section delay-${delay} ${inView ? 'visible' : ''}`}>
-      <div className="flip-card rounded-3xl" style={{ minHeight: 360 }}>
+      <div className="flip-card rounded-3xl" style={{ height: 380 }}>
         <div className="flip-card-inner rounded-3xl">
 
           {/* ── FRONT ── */}

@@ -7,6 +7,11 @@ export function useInView(threshold = 0.12) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+
+    // Fallback: make visible after 400ms regardless (catches race conditions and
+    // elements that are in-viewport on initial load before observer fires)
+    const timer = setTimeout(() => setInView(true), 400)
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -17,7 +22,10 @@ export function useInView(threshold = 0.12) {
       { threshold }
     )
     observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      clearTimeout(timer)
+      observer.disconnect()
+    }
   }, [threshold])
 
   return [ref, inView]
