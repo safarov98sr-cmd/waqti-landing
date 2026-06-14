@@ -434,7 +434,7 @@ function FeatureCard({ feature, delay }) {
         <div className="flip-card-inner rounded-3xl">
 
           {/* ── FRONT ── */}
-          <div className="flip-card-front rounded-3xl flex flex-col overflow-hidden" style={CARD_STYLE}>
+          <div className="flip-card-front rounded-3xl flex flex-col" style={CARD_STYLE}>
             {/* Phone mockup illustration */}
             <div style={{ height: 172, flexShrink: 0, overflow: 'hidden', position: 'relative' }}>
               <Mockup />
